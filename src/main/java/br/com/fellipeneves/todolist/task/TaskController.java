@@ -19,7 +19,6 @@ public class TaskController {
 
     @PostMapping("/")
     public ResponseEntity create(@RequestBody TaskModel taskModel, HttpServletRequest request) {
-
         var userId = request.getAttribute("idUser");
 
         var currentDate = LocalDate.now();
@@ -30,7 +29,6 @@ public class TaskController {
         if(taskModel.getStartAt().isAfter(taskModel.getEndAt())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A data de inicio não pode ser maior que a data de término");
         }
-
 
         taskModel.setIdUser((UUID) userId);
         var newTask = this.taskRepository.save(taskModel);
